@@ -49,9 +49,20 @@ unsigned int stringHash(void *s){
 
 
 int stringEquals(void *s1, void *s2){
-  fprintf(stderr, "You need to implement stringEquals");
+  /*fprintf(stderr, "You need to implement stringEquals");*/
   /* To suppress compiler warning until you implement this function */
-  return 0;
+  char *str1 = (void *) s1;
+  char *str2 = (void *) s2;
+  int diff;
+
+  diff = strcmp(str1, str2);
+
+  if (diff == 0) { /* The strings are equal. */
+    return diff;
+  } else { /* The strings are not equal. */
+    return 0;
+  }
+
 }
 
 void readDictionary(char *name){

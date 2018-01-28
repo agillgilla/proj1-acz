@@ -68,9 +68,43 @@ int stringEquals(void *s1, void *s2){
 void readDictionary(char *name){
   FILE *inputFile = fopen(name, "r");
 
+  if (inputFile == NULL) {
+    fprintf(stderr, "Error opening dictionary file.");
+    return;
+  }
+
+  while (readNextPair(inputFile) != 0) {
+    fprintf(stderr, "NEW LINE CALL");
+  }
   /* Printing the address of inputFile is to suppress compiler warning
      until you implement this function */
-  fprintf(stderr, "You need to implement readDictionary %x\n", (unsigned int) inputFile);
+  /*fprintf(stderr, "You need to implement readDictionary %x\n", (unsigned int) inputFile);*/
+
+}
+
+int readNextPair(FILE *inputFile) { /* Read next key, value pair and enter into hashtable.  Return 0 if EOF and 1 if not. */
+  /*FILE *inputFile = fopen(name, "r");*/
+  const int BUFF_LEN = 2;
+  int large_buff_len = 8;
+
+  int curr_buff_pos = 0;
+
+  char charbuff[BUFF_LEN];
+  char large_charbuff[large_buff_len];
+
+
+  while (fgets(charbuff, BUFF_LEN, inputFile) != NULL) {
+    /*fprintf(stderr, charbuff);*/
+    if (charbuff[0] == '\n') {
+      return 1;
+    } else {
+      fprintf(stderr, charbuff);
+    }
+    fprintf(stderr, "\n");
+  }
+
+   fclose(inputFile);
+   return 0;
 }
 
 

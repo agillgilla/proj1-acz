@@ -29,11 +29,22 @@ int main(int argc, char **argv){
 unsigned int stringHash(void *s){
   char *string = (void *) s;
   /* Printing string is to prevent a compiler warning until you
-     actually implement this function */
-  fprintf(stderr, "need to implement stringHash%s\n", string);
+     actually implement this function 
+  fprintf(stderr, "need to implement stringHash%s\n", string);*/
+
+  unsigned int hash = 5381;
+  int c;
+
+  while ((c = *string++)) {
+      hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
+  }
+    
+  return hash;
+
+  /*CITE: Hash function by Daniel Bernstein, found here: http://www.cse.yorku.ca/~oz/hash.html*/
 
   /* To suppress compiler warning until you implement this function, */
-  return 0;
+  /*return 0;*/
 }
 
 

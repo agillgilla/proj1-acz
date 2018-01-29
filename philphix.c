@@ -74,7 +74,9 @@ void readDictionary(char *name){
   }
 
   while (readNextPair(inputFile) != 0) {
+    fprintf(stderr, "\n");
     fprintf(stderr, "NEW LINE CALL");
+    fprintf(stderr, "\n");
   }
   /* Printing the address of inputFile is to suppress compiler warning
      until you implement this function */
@@ -92,15 +94,72 @@ int readNextPair(FILE *inputFile) { /* Read next key, value pair and enter into 
   char charbuff[BUFF_LEN];
   char large_charbuff[large_buff_len];
 
+  int task = 0; /*Different tasks.  0 = looking for key, 1 = parsing whitespace, 2 = looking for value 3 = found key and value, done*/
 
-  while (fgets(charbuff, BUFF_LEN, inputFile) != NULL) {
-    /*fprintf(stderr, charbuff);*/
-    if (charbuff[0] == '\n') {
-      return 1;
+  char *status = fgets(charbuff, BUFF_LEN, inputFile);
+  while (task != 3) {
+    if (status == NULL) {
+      fprintf(stderr, "End of File or Error in File");
+      return 0;
     } else {
-      fprintf(stderr, charbuff);
+      if (task == 0) {
+        if (isalnum(charbuff[0])) {
+          large_charbuff[curr_buff_pos] = charbuff[0];
+          fprintf(stderr, charbuff);
+          fprintf(stderr, "\n");
+          curr_buff_pos++;
+        } else if (charbuff[0] == ' ') {
+          /*TODO: BUILD KEY STRING*/
+          fprintf(stderr, "KEY: ");
+          fprintf(stderr, large_charbuff);
+          fprintf(stderr, "\n");
+          
+          curr_buff_pos = 0;
+          task++;
+        } else {
+          fprintf(stderr, "Unexpected character.  Aborting...");
+          exit(-1);
+        }
+      } else if (task == 1) {
+        if (charbuff[0] == ' ') {
+          fprintf(stderr, "READ SPACE");          
+        } else {
+          if (charbuff[0] == '\n') {
+            fprintf(stderr, "Unexpected newline before value.  Aborting...");
+            exit(-1);
+          } else {
+            fprintf(stderr, charbuff);
+            fprintf(stderr, "\n");
+            large_charbuff[curr_buff_pos] = charbuff[0];
+            curr_buff_pos++;
+            /*TODO: BEGAN VALUE SEARCH, STORE charbuff into large_charbuff*/
+            task++;
+          }
+        } 
+
+      } else if (task == 2) {
+        if (charbuff[0] == '\n') {
+          fprintf(stderr, "VALUE: ");
+          fprintf(stderr, large_charbuff);
+          fprintf(stderr, "\n");
+          /*TODO: BUILD VALUE STRING AND ENTER PAIR INTO DICTIONARY*/
+          return 1;
+        } else if (charbuff[0] == ' ') {
+          fprintf(stderr, "Unexpected whitespace in value.  Aborting...");
+          exit(-1);
+        } else {
+          large_charbuff[curr_buff_pos] = charbuff[0];
+          fprintf(stderr, charbuff);
+          fprintf(stderr, "\n");
+          curr_buff_pos++;
+        }
+      } else {
+        fprintf(stderr, "Unrecognized Task.  Aborting readNextPair...");
+        return 0;
+      }
     }
-    fprintf(stderr, "\n");
+
+    status = fgets(charbuff, BUFF_LEN, inputFile);
   }
 
    fclose(inputFile);

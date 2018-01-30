@@ -58,7 +58,7 @@ int stringEquals(void *s1, void *s2){
   diff = strcmp(str1, str2);
 
   if (diff == 0) { /* The strings are equal. */
-    return diff;
+    return 1;
   } else { /* The strings are not equal. */
     return 0;
   }
@@ -122,10 +122,26 @@ int readNextPair(FILE *inputFile) { /* Read next key, value pair and enter into 
       if (task == 0) {
         if (isalnum(charbuff[0])) {
           large_charbuff[curr_buff_pos] = charbuff[0];
+          
+          if (curr_buff_pos >= large_buff_len - 2) { 
+            char *tmp = realloc(large_charbuff, sizeof(char) * large_buff_len * 2);
+            if (tmp != NULL) {
+                large_buff_len = large_buff_len * 2;
+                large_charbuff = tmp;
+            } else {
+              fprintf(stderr, "Error allocating memory for character buffer.  Aborting...");
+              exit(-1);
+            }
+          }
+          
           /*fprintf(stderr, charbuff);
           fprintf(stderr, "\n");*/
           curr_buff_pos++;
         } else if (charbuff[0] == ' ') {
+          if (curr_buff_pos == 0) {
+            fprintf(stderr, "Unexpected space before key. Aborting...");
+            exit(-1);
+          }
           /*TODO: BUILD KEY STRING*/
           key = malloc(sizeof(char) * (curr_buff_pos + 1));
           strncpy(key, large_charbuff, curr_buff_pos + 1);
@@ -151,6 +167,18 @@ int readNextPair(FILE *inputFile) { /* Read next key, value pair and enter into 
             /*fprintf(stderr, charbuff);
             fprintf(stderr, "\n");*/
             large_charbuff[curr_buff_pos] = charbuff[0];
+            
+            if (curr_buff_pos >= large_buff_len - 2) { 
+              char *tmp = realloc(large_charbuff, sizeof(char) * large_buff_len * 2);
+              if (tmp != NULL) {
+                large_buff_len = large_buff_len * 2;
+                large_charbuff = tmp;
+              } else {
+                fprintf(stderr, "Error allocating memory for character buffer.  Aborting...");
+                exit(-1);
+              }
+            }
+            
             curr_buff_pos++;
             task++;
           }
@@ -171,6 +199,18 @@ int readNextPair(FILE *inputFile) { /* Read next key, value pair and enter into 
           exit(-1);
         } else {
           large_charbuff[curr_buff_pos] = charbuff[0];
+          
+          if (curr_buff_pos >= large_buff_len - 2) { 
+            char *tmp = realloc(large_charbuff, sizeof(char) * large_buff_len * 2);
+            if (tmp != NULL) {
+              large_buff_len = large_buff_len * 2;
+              large_charbuff = tmp;
+            } else {
+              fprintf(stderr, "Error allocating memory for character buffer.  Aborting...");
+              exit(-1);
+            }
+          }
+          
           /*fprintf(stderr, charbuff);
           fprintf(stderr, "\n");*/
           curr_buff_pos++;
@@ -182,7 +222,11 @@ int readNextPair(FILE *inputFile) { /* Read next key, value pair and enter into 
     }
 
   }
-
+  fprintf(stderr, "PRINTING KEY:");
+  fprintf(stderr, key);
+  fprintf(stderr, "\n");
+  fprintf(stderr, "PRINTING VALUE:");
+  fprintf(stderr, value);
   insertData(dictionary, key, value);
 
   return 1;
@@ -190,5 +234,10 @@ int readNextPair(FILE *inputFile) { /* Read next key, value pair and enter into 
 
 
 void processInput(){
+  char *val1 = (void *) findData(dictionary, (void *) "Lions");
+  fprintf(stderr, val1);
+  if (val1 == NULL) {
+    fprintf(stderr, "null");
+  }
   fprintf(stderr, "You need to implement processInput\n");
 }

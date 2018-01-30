@@ -1,6 +1,7 @@
 
 #include "hashtable.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 HashTable *createHashTable(int size, unsigned int (*hashFunction) (void *),
 			   int (*equalFunction)(void *, void *)){

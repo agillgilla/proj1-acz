@@ -78,40 +78,60 @@ void readDictionary(char *name){
     fprintf(stderr, "NEW LINE CALL");
     fprintf(stderr, "\n");
   }
+  fclose(inputFile);
   /* Printing the address of inputFile is to suppress compiler warning
      until you implement this function */
   /*fprintf(stderr, "You need to implement readDictionary %x\n", (unsigned int) inputFile);*/
 
 }
 
-int readNextPair(FILE *inputFile) { /* Read next key, value pair and enter into hashtable.  Return 0 if EOF and 1 if not. */
+int readNextPair(FILE *inputFile) { /* Read next key, value pair and enter into hashtable.  Return -1 if ERROR, 0 if EOF, and 1 if successful */
   /*FILE *inputFile = fopen(name, "r");*/
+  char *key = NULL;
+  char *value = NULL;
+
   const int BUFF_LEN = 2;
-  int large_buff_len = 8;
+  int large_buff_len = 16;
 
   int curr_buff_pos = 0;
 
   char charbuff[BUFF_LEN];
-  char large_charbuff[large_buff_len];
+  char *large_charbuff = malloc(sizeof(char) * large_buff_len);
 
   int task = 0; /*Different tasks.  0 = looking for key, 1 = parsing whitespace, 2 = looking for value 3 = found key and value, done*/
 
-  char *status = fgets(charbuff, BUFF_LEN, inputFile);
+  char *status;
   while (task != 3) {
+    status = fgets(charbuff, BUFF_LEN, inputFile);
+
     if (status == NULL) {
-      fprintf(stderr, "End of File or Error in File");
+      if (task == 2) {
+        value = malloc(sizeof(char) * (curr_buff_pos + 1));
+        strncpy(value, large_charbuff, curr_buff_pos + 1);
+        value[curr_buff_pos] = '\0';
+        fprintf(stderr, "VALUE: ");
+        fprintf(stderr, value);
+        fprintf(stderr, "\n");
+        /*TODO: BUILD VALUE STRING AND ENTER PAIR INTO DICTIONARY*/
+        task++;
+      }
+      fprintf(stderr, "End of File");
+      fprintf(stderr, "\n");
       return 0;
     } else {
       if (task == 0) {
         if (isalnum(charbuff[0])) {
           large_charbuff[curr_buff_pos] = charbuff[0];
-          fprintf(stderr, charbuff);
-          fprintf(stderr, "\n");
+          /*fprintf(stderr, charbuff);
+          fprintf(stderr, "\n");*/
           curr_buff_pos++;
         } else if (charbuff[0] == ' ') {
           /*TODO: BUILD KEY STRING*/
+          key = malloc(sizeof(char) * (curr_buff_pos + 1));
+          strncpy(key, large_charbuff, curr_buff_pos + 1);
+          key[curr_buff_pos] = '\0';
           fprintf(stderr, "KEY: ");
-          fprintf(stderr, large_charbuff);
+          fprintf(stderr, key);
           fprintf(stderr, "\n");
           
           curr_buff_pos = 0;
@@ -122,48 +142,50 @@ int readNextPair(FILE *inputFile) { /* Read next key, value pair and enter into 
         }
       } else if (task == 1) {
         if (charbuff[0] == ' ') {
-          fprintf(stderr, "READ SPACE");          
+          /* ITERATE THROUGH WHITESPACE */         
         } else {
           if (charbuff[0] == '\n') {
             fprintf(stderr, "Unexpected newline before value.  Aborting...");
             exit(-1);
           } else {
-            fprintf(stderr, charbuff);
-            fprintf(stderr, "\n");
+            /*fprintf(stderr, charbuff);
+            fprintf(stderr, "\n");*/
             large_charbuff[curr_buff_pos] = charbuff[0];
             curr_buff_pos++;
-            /*TODO: BEGAN VALUE SEARCH, STORE charbuff into large_charbuff*/
             task++;
           }
         } 
 
       } else if (task == 2) {
         if (charbuff[0] == '\n') {
+          value = malloc(sizeof(char) * (curr_buff_pos + 1));
+          strncpy(value, large_charbuff, curr_buff_pos + 1);
+          value[curr_buff_pos] = '\0';
           fprintf(stderr, "VALUE: ");
-          fprintf(stderr, large_charbuff);
+          fprintf(stderr, value);
           fprintf(stderr, "\n");
           /*TODO: BUILD VALUE STRING AND ENTER PAIR INTO DICTIONARY*/
-          return 1;
+          task++;
         } else if (charbuff[0] == ' ') {
           fprintf(stderr, "Unexpected whitespace in value.  Aborting...");
           exit(-1);
         } else {
           large_charbuff[curr_buff_pos] = charbuff[0];
-          fprintf(stderr, charbuff);
-          fprintf(stderr, "\n");
+          /*fprintf(stderr, charbuff);
+          fprintf(stderr, "\n");*/
           curr_buff_pos++;
         }
       } else {
         fprintf(stderr, "Unrecognized Task.  Aborting readNextPair...");
-        return 0;
+        return -1;
       }
     }
 
-    status = fgets(charbuff, BUFF_LEN, inputFile);
   }
 
-   fclose(inputFile);
-   return 0;
+  insertData(dictionary, key, value);
+
+  return 1;
 }
 
 

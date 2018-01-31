@@ -229,15 +229,109 @@ int readNextPair(FILE *inputFile) { /* Read next key, value pair and enter into 
   fprintf(stderr, value);
   insertData(dictionary, key, value);
 
+  free(large_charbuff);
+
   return 1;
 }
 
 
-void processInput(){
-  char *val1 = (void *) findData(dictionary, (void *) "Lions");
-  fprintf(stderr, val1);
-  if (val1 == NULL) {
-    fprintf(stderr, "null");
+void processInput() {
+  fprintf(stderr, "OUTPUT:");
+  fprintf(stderr, "\n");
+  while (processNextWord() != 0) {
+      /*fprintf(stderr, "PROCCESSED A WORD/CHAR");
+      fprintf(stderr, "\n");*/
   }
-  fprintf(stderr, "You need to implement processInput\n");
+}
+
+int processNextWord() { /* Read next word and handle according to replace rules.  Return -1 if ERROR, 0 if EOF, and 1 if successful */
+  const int BUFF_LEN = 2;
+  int large_buff_len = 16;
+
+  int curr_buff_pos = 0;
+
+  char charbuff[BUFF_LEN];
+  char *large_charbuff = malloc(sizeof(char) * large_buff_len);
+
+  char *status = fgets(charbuff, BUFF_LEN, stdin);
+
+  if (status == NULL) { /* End of File. */
+    return 0;
+  }
+
+  if (!isalnum(charbuff[0])) { /* Output non alphanumeric chars to stdout immediately. */
+    fprintf(stdout, charbuff);
+    return 1;
+  } else { /* Begin building word. */
+      large_charbuff[curr_buff_pos] = charbuff[0];
+      curr_buff_pos++;
+
+      while (status != NULL && isalnum(charbuff[0])) {
+        status = fgets(charbuff, BUFF_LEN, stdin);
+
+        large_charbuff[curr_buff_pos] = charbuff[0];
+          
+        if (curr_buff_pos >= large_buff_len - 2) { 
+          char *tmp = realloc(large_charbuff, sizeof(char) * large_buff_len * 2);
+          if (tmp != NULL) {
+              large_buff_len = large_buff_len * 2;
+              large_charbuff = tmp;
+          } else {
+            fprintf(stderr, "Error allocating memory for character buffer.  Aborting...");
+            exit(-1);
+          }
+        }
+
+        curr_buff_pos++;
+      }
+
+      curr_buff_pos--;
+
+      char *word = malloc(sizeof(char) * (curr_buff_pos + 1));
+      strncpy(word, large_charbuff, curr_buff_pos + 1);
+      char *word_original = malloc(sizeof(char) * (curr_buff_pos + 1));
+      strncpy(word_original, large_charbuff, curr_buff_pos + 1);
+      word[curr_buff_pos] = '\0';
+      word_original[curr_buff_pos] = '\0';
+
+      free(large_charbuff);
+
+      if (findData(dictionary, word) != NULL) { /* Immediate match */
+        fprintf(stdout, findData(dictionary, word));
+      } else { /* Check word with all but first converted to lowercase */
+        size_t i;
+
+        for(i = 1; i < curr_buff_pos; i++) {
+          word[i] = tolower(word[i]);
+        }
+
+        if (findData(dictionary, word) != NULL) { /* Match after first change */
+          fprintf(stdout, findData(dictionary, word));
+        } else { /* Check word entirely lowercase */
+          word[0] = tolower(word[0]);
+
+          if (findData(dictionary, word) != NULL) { /* Match after second change */
+            fprintf(stdout, findData(dictionary, word));
+          } else { /* No matches */
+            /* PRINT ORIGINAL! */
+            fprintf(stdout, word_original);
+            free(word_original);
+          }
+        }
+      }
+
+
+      free(word);
+
+      if (status == NULL) { /* End of File. */
+        return 0;
+      } else if (!isalnum(charbuff[0])) {
+        fprintf(stdout, charbuff); /* Print the extra non-alhpanumeric char we found. */
+        return 1;
+      } else {
+        fprintf(stderr, "Unrecognized input error.  Aborting...");
+        exit(-1);
+      }
+  }
+
 }

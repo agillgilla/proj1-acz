@@ -17,4 +17,6 @@ extern int readNextPair(FILE* inputFile);
 
 extern void processInput();
 
+extern int processNextWord();
+
 #endif

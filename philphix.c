@@ -278,6 +278,8 @@ int processNextWord() { /* Read next word and handle according to replace rules.
               large_charbuff = tmp;
               fprintf(stderr, "REALLOCED, NEW LENGTH: ");
               fprintf(stderr, "%d", large_buff_len);
+              fprinf(stderr, ", BUFFER POSITION: ");
+              fprintf(stderr, "%d", curr_buff_pos);
               fprintf(stderr, "\n");
               fprintf(stderr, large_charbuff);
               fprintf(stderr, "\n");  

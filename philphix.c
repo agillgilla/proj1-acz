@@ -229,7 +229,7 @@ int readNextPair(FILE *inputFile) { /* Read next key, value pair and enter into 
   fprintf(stderr, value);*/
   insertData(dictionary, key, value);
 
-  free(large_charbuff);
+  /*free(large_charbuff);*/
 
   return 1;
 }
@@ -310,9 +310,6 @@ int processNextWord() { /* Read next word and handle according to replace rules.
 
       char *result = NULL;
       result = findData(dictionary, word);
-
-      fprintf(stderr, result);
-
       if (result != NULL) { /* Immediate match */
         /*fprintf(stdout, findData(dictionary, word));*/
         fprintf(stderr, "\n");
@@ -348,9 +345,9 @@ int processNextWord() { /* Read next word and handle according to replace rules.
         }
       }
 
-      free(large_charbuff);
+      /*free(large_charbuff);
       free(word);
-      free(word_original);
+      free(word_original);*/
 
       
 

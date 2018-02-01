@@ -191,14 +191,14 @@ int readNextPair(FILE *inputFile) { /* Read next key, value pair and enter into 
           strncpy(value, large_charbuff, curr_buff_pos);
           value[curr_buff_pos] = '\0';
 
-          fprintf(stderr, "VALUE LENGTH: ");
+          /*fprintf(stderr, "VALUE LENGTH: ");
           fprintf(stderr, "%d", strlen(value));
           fprintf(stderr, ", MALLOC SIZE: ");
           fprintf(stderr, "%d", curr_buff_pos + 1);
           fprintf(stderr, "\n");
           fprintf(stderr, "%s", value);
           fprintf(stderr, "\n");
-          /*fprintf(stderr, "VALUE: ");
+          fprintf(stderr, "VALUE: ");
           fprintf(stderr, value);
           fprintf(stderr, "\n");*/
           /*TODO: BUILD VALUE STRING AND ENTER PAIR INTO DICTIONARY*/
@@ -246,11 +246,12 @@ int readNextPair(FILE *inputFile) { /* Read next key, value pair and enter into 
 
 
 void processInput() {
-  fprintf(stderr, "\n");
+  /*fprintf(stderr, "\n");*/
   while (processNextWord() != 0) {
       /*fprintf(stderr, "PROCCESSED A WORD/CHAR");
       fprintf(stderr, "\n");*/
   }
+  fprintf(stderr, "Processed replacements successfully.\n");
 }
 
 int processNextWord() { /* Read next word and handle according to replace rules.  Return -1 if ERROR, 0 if EOF, and 1 if successful */
@@ -329,8 +330,6 @@ int processNextWord() { /* Read next word and handle according to replace rules.
       result = findData(dictionary, word);
       if (result != NULL) { /* Immediate match */
         /*fprintf(stdout, findData(dictionary, word));*/
-        fprintf(stderr, "\n");
-        fprintf(stderr, "Immediate match.");
         fflush(stdout);
         fprintf(stdout, "%s", result);
       } else { /* Check word with all but first converted to lowercase */

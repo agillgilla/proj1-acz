@@ -306,6 +306,9 @@ int processNextWord() { /* Read next word and handle according to replace rules.
 
       free(large_charbuff);
 
+      fprintf(stderr, "\n");
+      fprintf(stderr, "Successfully copied large_charbuff.");
+
       if (findData(dictionary, word) != NULL) { /* Immediate match */
         fprintf(stdout, findData(dictionary, word));
       } else { /* Check word with all but first converted to lowercase */
@@ -333,8 +336,7 @@ int processNextWord() { /* Read next word and handle according to replace rules.
       free(word);
       free(word_original);
 
-      fprintf(stderr, "\n");
-      fprintf(stderr, "Successfully outputted word.");
+      
 
       if (status == NULL) { /* End of File. */
         return 0;

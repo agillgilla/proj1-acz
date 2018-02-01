@@ -332,7 +332,7 @@ int processNextWord() { /* Read next word and handle according to replace rules.
         fprintf(stderr, "\n");
         fprintf(stderr, "Immediate match.");
         fflush(stdout);
-        fprintf(stdout, result);
+        fprintf(stdout, "%s", result);
       } else { /* Check word with all but first converted to lowercase */
         size_t i;
 
@@ -345,16 +345,16 @@ int processNextWord() { /* Read next word and handle according to replace rules.
 
         result = findData(dictionary, word);
         if (result != NULL) { /* Match after first change */
-          fprintf(stdout, result);
+          fprintf(stdout, "%s", result);
         } else { /* Check word entirely lowercase */
           word[0] = tolower(word[0]);
 
           result = findData(dictionary, word);
           if (result != NULL) { /* Match after second change */
-            fprintf(stdout, result);
+            fprintf(stdout, "%s", result);
           } else { /* No matches */
             /* PRINT ORIGINAL! */
-            fprintf(stdout, word_original);
+            fprintf(stdout, "%s", word_original);
           }
         }
       }

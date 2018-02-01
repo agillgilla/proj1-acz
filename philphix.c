@@ -262,11 +262,8 @@ int processNextWord() { /* Read next word and handle according to replace rules.
     fprintf(stdout, charbuff);
     return 1;
   } else { /* Begin building word. */
-      large_charbuff[curr_buff_pos] = charbuff[0];
-      curr_buff_pos++;
 
       while (status != NULL && isalnum(charbuff[0])) {
-        status = fgets(charbuff, BUFF_LEN, stdin);
 
         if (curr_buff_pos >= large_buff_len) { 
           char *tmp = realloc(large_charbuff, sizeof(char) * large_buff_len * 2);
@@ -291,6 +288,8 @@ int processNextWord() { /* Read next word and handle according to replace rules.
         large_charbuff[curr_buff_pos] = charbuff[0];
 
         curr_buff_pos++;
+
+        status = fgets(charbuff, BUFF_LEN, stdin);
       }
 
       /*fprintf(stderr, "\n");

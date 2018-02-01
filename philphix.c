@@ -313,7 +313,8 @@ int processNextWord() { /* Read next word and handle according to replace rules.
         /*fprintf(stdout, findData(dictionary, word));*/
         fprintf(stderr, "\n");
         fprintf(stderr, "Immediate match.");
-        fprintf(stdout, result);     
+        fprintf(stdout, result);
+        fflush(stdout);
       } else { /* Check word with all but first converted to lowercase */
         size_t i;
 

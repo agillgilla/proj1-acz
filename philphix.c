@@ -322,6 +322,7 @@ int processNextWord() { /* Read next word and handle according to replace rules.
 
 
       free(word);
+      free(word_original);
 
       if (status == NULL) { /* End of File. */
         return 0;

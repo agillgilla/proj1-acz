@@ -303,6 +303,14 @@ int processNextWord() { /* Read next word and handle according to replace rules.
       word_original[curr_buff_pos] = '\0';
 
 
+      fprintf(stderr, "STRING LENGTH: ");
+      fprintf(stderr, "%d", strlen(word));
+      fprintf(stderr, ", MALLOC SIZE: ");
+      fprintf(stderr, "%d", curr_buff_pos + 1);
+      fprintf(stderr, "\n");
+      fprintf(stderr, word);
+      fprintf(stderr, "\n");
+
       /*fprintf(stderr, "BUILT WORD: ");
       fprintf(stderr, word);
       fprintf(stderr, "\n");*/
@@ -313,8 +321,8 @@ int processNextWord() { /* Read next word and handle according to replace rules.
         /*fprintf(stdout, findData(dictionary, word));*/
         fprintf(stderr, "\n");
         fprintf(stderr, "Immediate match.");
-        fprintf(stdout, result);
         fflush(stdout);
+        fprintf(stdout, result);
       } else { /* Check word with all but first converted to lowercase */
         size_t i;
 

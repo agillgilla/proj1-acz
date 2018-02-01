@@ -121,9 +121,8 @@ int readNextPair(FILE *inputFile) { /* Read next key, value pair and enter into 
     } else {
       if (task == 0) {
         if (isalnum(charbuff[0])) {
-          large_charbuff[curr_buff_pos] = charbuff[0];
-          
-          if (curr_buff_pos >= large_buff_len - 2) { 
+                   
+          if (curr_buff_pos >= large_buff_len) { 
             char *tmp = realloc(large_charbuff, sizeof(char) * large_buff_len * 2);
             if (tmp != NULL) {
                 large_buff_len = large_buff_len * 2;
@@ -133,6 +132,8 @@ int readNextPair(FILE *inputFile) { /* Read next key, value pair and enter into 
               exit(-1);
             }
           }
+
+          large_charbuff[curr_buff_pos] = charbuff[0];
           
           /*fprintf(stderr, charbuff);
           fprintf(stderr, "\n");*/
@@ -166,9 +167,7 @@ int readNextPair(FILE *inputFile) { /* Read next key, value pair and enter into 
           } else {
             /*fprintf(stderr, charbuff);
             fprintf(stderr, "\n");*/
-            large_charbuff[curr_buff_pos] = charbuff[0];
-            
-            if (curr_buff_pos >= large_buff_len - 2) { 
+            if (curr_buff_pos >= large_buff_len) { 
               char *tmp = realloc(large_charbuff, sizeof(char) * large_buff_len * 2);
               if (tmp != NULL) {
                 large_buff_len = large_buff_len * 2;
@@ -178,6 +177,8 @@ int readNextPair(FILE *inputFile) { /* Read next key, value pair and enter into 
                 exit(-1);
               }
             }
+
+            large_charbuff[curr_buff_pos] = charbuff[0];
             
             curr_buff_pos++;
             task++;
@@ -198,9 +199,8 @@ int readNextPair(FILE *inputFile) { /* Read next key, value pair and enter into 
           fprintf(stderr, "Unexpected whitespace in value.  Aborting...");
           exit(-1);
         } else {
-          large_charbuff[curr_buff_pos] = charbuff[0];
           
-          if (curr_buff_pos >= large_buff_len - 2) { 
+          if (curr_buff_pos >= large_buff_len) { 
             char *tmp = realloc(large_charbuff, sizeof(char) * large_buff_len * 2);
             if (tmp != NULL) {
               large_buff_len = large_buff_len * 2;
@@ -210,6 +210,8 @@ int readNextPair(FILE *inputFile) { /* Read next key, value pair and enter into 
               exit(-1);
             }
           }
+
+          large_charbuff[curr_buff_pos] = charbuff[0];
           
           /*fprintf(stderr, charbuff);
           fprintf(stderr, "\n");*/

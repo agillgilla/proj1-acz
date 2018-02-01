@@ -280,7 +280,7 @@ int processNextWord() { /* Read next word and handle according to replace rules.
           if (tmp != NULL) {
               large_buff_len = large_buff_len * 2;
               large_charbuff = tmp;
-              fprintf(stderr, "REALLOCED, NEW LENGTH: ");
+              /*fprintf(stderr, "REALLOCED, NEW LENGTH: ");
               fprintf(stderr, "%d", large_buff_len);
               fprintf(stderr, ", BUFFER POSITION: ");
               fprintf(stderr, "%d", curr_buff_pos);
@@ -288,7 +288,7 @@ int processNextWord() { /* Read next word and handle according to replace rules.
               fprintf(stderr, "%d", strlen(large_charbuff));
               fprintf(stderr, "\n");
               fprintf(stderr, large_charbuff);
-              fprintf(stderr, "\n");
+              fprintf(stderr, "\n");*/
           } else {
             fprintf(stderr, "Error allocating memory for character buffer.  Aborting...");
             exit(-1);
@@ -313,13 +313,13 @@ int processNextWord() { /* Read next word and handle according to replace rules.
       word_original[curr_buff_pos] = '\0';
 
 
-      fprintf(stderr, "STRING LENGTH: ");
+      /*fprintf(stderr, "STRING LENGTH: ");
       fprintf(stderr, "%d", strlen(word));
       fprintf(stderr, ", MALLOC SIZE: ");
       fprintf(stderr, "%d", curr_buff_pos + 1);
       fprintf(stderr, "\n");
       fprintf(stderr, word);
-      fprintf(stderr, "\n");
+      fprintf(stderr, "\n");*/
 
       /*fprintf(stderr, "BUILT WORD: ");
       fprintf(stderr, word);

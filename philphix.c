@@ -74,9 +74,9 @@ void readDictionary(char *name){
   }
 
   while (readNextPair(inputFile) != 0) {
-    fprintf(stderr, "\n");
+    /*fprintf(stderr, "\n");
     fprintf(stderr, "NEW LINE CALL");
-    fprintf(stderr, "\n");
+    fprintf(stderr, "\n");*/
   }
   fclose(inputFile);
   /* Printing the address of inputFile is to suppress compiler warning
@@ -236,7 +236,6 @@ int readNextPair(FILE *inputFile) { /* Read next key, value pair and enter into 
 
 
 void processInput() {
-  fprintf(stderr, "OUTPUT:");
   fprintf(stderr, "\n");
   while (processNextWord() != 0) {
       /*fprintf(stderr, "PROCCESSED A WORD/CHAR");
@@ -274,7 +273,7 @@ int processNextWord() { /* Read next word and handle according to replace rules.
           if (tmp != NULL) {
               large_buff_len = large_buff_len * 2;
               large_charbuff = tmp;
-              fprintf(stderr, "REALLOCED, NEW LENGTH: ");
+              /*fprintf(stderr, "REALLOCED, NEW LENGTH: ");
               fprintf(stderr, "%d", large_buff_len);
               fprintf(stderr, ", BUFFER POSITION: ");
               fprintf(stderr, "%d", curr_buff_pos);
@@ -282,7 +281,7 @@ int processNextWord() { /* Read next word and handle according to replace rules.
               fprintf(stderr, "%d", strlen(large_charbuff));
               fprintf(stderr, "\n");
               fprintf(stderr, large_charbuff);
-              fprintf(stderr, "\n");  
+              fprintf(stderr, "\n");*/  
           } else {
             fprintf(stderr, "Error allocating memory for character buffer.  Aborting...");
             exit(-1);
@@ -294,8 +293,8 @@ int processNextWord() { /* Read next word and handle according to replace rules.
         curr_buff_pos++;
       }
 
-      fprintf(stderr, "\n");
-      fprintf(stderr, "Successfully built word.");
+      /*fprintf(stderr, "\n");
+      fprintf(stderr, "Successfully built word.");*/
 
       char *word = malloc(sizeof(char) * (curr_buff_pos + 1));
       strncpy(word, large_charbuff, curr_buff_pos);
@@ -310,13 +309,10 @@ int processNextWord() { /* Read next word and handle according to replace rules.
       result = findData(dictionary, word);
       if (result != NULL) { /* Immediate match */
         /*fprintf(stdout, findData(dictionary, word));*/
-        fprintf(stderr, "\n");
-        fprintf(stderr, "Immediate match.");
+        /*fprintf(stderr, "\n");
+        fprintf(stderr, "Immediate match.");*/
         fprintf(stdout, result);
-        fflush(stdout);
-        fprintf(stderr, "\n");
-        fprintf(stderr, "Printed to standard out");
-        
+        fflush(stdout);      
       } else { /* Check word with all but first converted to lowercase */
         size_t i;
 
@@ -324,8 +320,8 @@ int processNextWord() { /* Read next word and handle according to replace rules.
           word[i] = tolower(word[i]);
         }
 
-        fprintf(stderr, "\n");
-        fprintf(stderr, "Successfully finished check editing.");
+        /*fprintf(stderr, "\n");
+        fprintf(stderr, "Successfully finished check editing.");*/
 
         result = findData(dictionary, word);
         if (result != NULL) { /* Match after first change */
@@ -347,8 +343,8 @@ int processNextWord() { /* Read next word and handle according to replace rules.
       free(word);
       free(word_original);
 
-      fprintf(stderr, "\n");
-      fprintf(stderr, "Freed variables");
+      /*fprintf(stderr, "\n");
+      fprintf(stderr, "Freed variables");*/
       
 
       if (status == NULL) { /* End of File. */

@@ -275,6 +275,9 @@ int processNextWord() { /* Read next word and handle according to replace rules.
           char *tmp = realloc(large_charbuff, sizeof(char) * large_buff_len * 2);
           if (tmp != NULL) {
               large_buff_len = large_buff_len * 2;
+              fprintf(stderr, "REALLOCED, NEW LENGTH: ");
+              fprintf(stderr, large_buff_len);
+              fprintf(stderr, "\n");
               large_charbuff = tmp;
           } else {
             fprintf(stderr, "Error allocating memory for character buffer.  Aborting...");

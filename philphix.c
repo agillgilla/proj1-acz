@@ -278,6 +278,8 @@ int processNextWord() { /* Read next word and handle according to replace rules.
               fprintf(stderr, "REALLOCED, NEW LENGTH: ");
               fprintf(stderr, "%d", large_buff_len);
               fprintf(stderr, "\n");
+              fprintf(stderr, large_charbuff);
+              fprintf(stderr, "\n");
               large_charbuff = tmp;
           } else {
             fprintf(stderr, "Error allocating memory for character buffer.  Aborting...");

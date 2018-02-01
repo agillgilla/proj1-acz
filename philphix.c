@@ -312,6 +312,7 @@ int processNextWord() { /* Read next word and handle according to replace rules.
         fprintf(stderr, "\n");
         fprintf(stderr, "Immediate match");
         fprintf(stdout, result);
+        fflush(stdout);
         fprintf(stderr, "\n");
         fprintf(stderr, "Printed to standard out");
         

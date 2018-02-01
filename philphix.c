@@ -304,9 +304,6 @@ int processNextWord() { /* Read next word and handle according to replace rules.
       word[curr_buff_pos] = '\0';
       word_original[curr_buff_pos] = '\0';
 
-      free(large_charbuff);
-
-      
 
       if (findData(dictionary, word) != NULL) { /* Immediate match */
         fprintf(stdout, findData(dictionary, word));
@@ -336,7 +333,7 @@ int processNextWord() { /* Read next word and handle according to replace rules.
         }
       }
 
-
+      free(large_charbuff);
       free(word);
       free(word_original);
 

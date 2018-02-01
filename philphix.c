@@ -312,6 +312,8 @@ int processNextWord() { /* Read next word and handle according to replace rules.
         fprintf(stderr, "\n");
         fprintf(stderr, "Immediate match");
         fprintf(stdout, result);
+        fprintf(stderr, "\n");
+        fprintf(stderr, "Printed to standard out");
         
       } else { /* Check word with all but first converted to lowercase */
         size_t i;

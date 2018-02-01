@@ -107,7 +107,7 @@ int readNextPair(FILE *inputFile) { /* Read next key, value pair and enter into 
     if (status == NULL) {
       if (task == 2) {
         value = malloc(sizeof(char) * (curr_buff_pos + 1));
-        strncpy(value, large_charbuff, curr_buff_pos + 1);
+        strncpy(value, large_charbuff, curr_buff_pos);
         value[curr_buff_pos] = '\0';
         /*fprintf(stderr, "VALUE: ");
         fprintf(stderr, value);
@@ -144,7 +144,7 @@ int readNextPair(FILE *inputFile) { /* Read next key, value pair and enter into 
           }
           /*TODO: BUILD KEY STRING*/
           key = malloc(sizeof(char) * (curr_buff_pos + 1));
-          strncpy(key, large_charbuff, curr_buff_pos + 1);
+          strncpy(key, large_charbuff, curr_buff_pos);
           key[curr_buff_pos] = '\0';
           /*fprintf(stderr, "KEY: ");
           fprintf(stderr, key);
@@ -187,7 +187,7 @@ int readNextPair(FILE *inputFile) { /* Read next key, value pair and enter into 
       } else if (task == 2) {
         if (charbuff[0] == '\n') {
           value = malloc(sizeof(char) * (curr_buff_pos + 1));
-          strncpy(value, large_charbuff, curr_buff_pos + 1);
+          strncpy(value, large_charbuff, curr_buff_pos);
           value[curr_buff_pos] = '\0';
           /*fprintf(stderr, "VALUE: ");
           fprintf(stderr, value);

@@ -196,7 +196,7 @@ int readNextPair(FILE *inputFile) { /* Read next key, value pair and enter into 
           fprintf(stderr, ", MALLOC SIZE: ");
           fprintf(stderr, "%d", curr_buff_pos + 1);
           fprintf(stderr, "\n");
-          fprintf(stderr, value);
+          fprintf(stderr, "%s", value);
           fprintf(stderr, "\n");
           /*fprintf(stderr, "VALUE: ");
           fprintf(stderr, value);

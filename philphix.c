@@ -276,7 +276,7 @@ int processNextWord() { /* Read next word and handle according to replace rules.
           if (tmp != NULL) {
               large_buff_len = large_buff_len * 2;
               fprintf(stderr, "REALLOCED, NEW LENGTH: ");
-              fprintf(stderr, large_buff_len);
+              fprintf(stderr, "%d", large_buff_len);
               fprintf(stderr, "\n");
               large_charbuff = tmp;
           } else {

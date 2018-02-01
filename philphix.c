@@ -109,9 +109,9 @@ int readNextPair(FILE *inputFile) { /* Read next key, value pair and enter into 
         value = malloc(sizeof(char) * (curr_buff_pos + 1));
         strncpy(value, large_charbuff, curr_buff_pos + 1);
         value[curr_buff_pos] = '\0';
-        fprintf(stderr, "VALUE: ");
+        /*fprintf(stderr, "VALUE: ");
         fprintf(stderr, value);
-        fprintf(stderr, "\n");
+        fprintf(stderr, "\n");*/
         /*TODO: BUILD VALUE STRING AND ENTER PAIR INTO DICTIONARY*/
         task++;
       }
@@ -146,9 +146,9 @@ int readNextPair(FILE *inputFile) { /* Read next key, value pair and enter into 
           key = malloc(sizeof(char) * (curr_buff_pos + 1));
           strncpy(key, large_charbuff, curr_buff_pos + 1);
           key[curr_buff_pos] = '\0';
-          fprintf(stderr, "KEY: ");
+          /*fprintf(stderr, "KEY: ");
           fprintf(stderr, key);
-          fprintf(stderr, "\n");
+          fprintf(stderr, "\n");*/
           
           curr_buff_pos = 0;
           task++;
@@ -189,9 +189,9 @@ int readNextPair(FILE *inputFile) { /* Read next key, value pair and enter into 
           value = malloc(sizeof(char) * (curr_buff_pos + 1));
           strncpy(value, large_charbuff, curr_buff_pos + 1);
           value[curr_buff_pos] = '\0';
-          fprintf(stderr, "VALUE: ");
+          /*fprintf(stderr, "VALUE: ");
           fprintf(stderr, value);
-          fprintf(stderr, "\n");
+          fprintf(stderr, "\n");*/
           /*TODO: BUILD VALUE STRING AND ENTER PAIR INTO DICTIONARY*/
           task++;
         } else if (charbuff[0] == ' ') {
@@ -222,11 +222,11 @@ int readNextPair(FILE *inputFile) { /* Read next key, value pair and enter into 
     }
 
   }
-  fprintf(stderr, "PRINTING KEY:");
+  /*fprintf(stderr, "PRINTING KEY:");
   fprintf(stderr, key);
   fprintf(stderr, "\n");
   fprintf(stderr, "PRINTING VALUE:");
-  fprintf(stderr, value);
+  fprintf(stderr, value);*/
   insertData(dictionary, key, value);
 
   free(large_charbuff);

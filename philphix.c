@@ -315,7 +315,6 @@ int processNextWord() { /* Read next word and handle according to replace rules.
           } else { /* No matches */
             /* PRINT ORIGINAL! */
             fprintf(stdout, word_original);
-            free(word_original);
           }
         }
       }

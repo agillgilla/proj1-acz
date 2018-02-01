@@ -294,6 +294,9 @@ int processNextWord() { /* Read next word and handle according to replace rules.
 
       curr_buff_pos--;
 
+      fprintf(stderr, "\n");
+      fprintf(stderr, "Successfully build word.");
+
       char *word = malloc(sizeof(char) * (curr_buff_pos + 1));
       strncpy(word, large_charbuff, curr_buff_pos + 1);
       char *word_original = malloc(sizeof(char) * (curr_buff_pos + 1));

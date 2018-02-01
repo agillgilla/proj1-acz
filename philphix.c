@@ -304,6 +304,9 @@ int processNextWord() { /* Read next word and handle according to replace rules.
       word_original[curr_buff_pos] = '\0';
 
 
+      fprintf(stderr, "BUILT WORD: ");
+      fprintf(stderr, word);
+      fprintf(stderr, "\n");
 
       char *result = NULL;
       result = findData(dictionary, word);

@@ -305,9 +305,11 @@ int processNextWord() { /* Read next word and handle according to replace rules.
       word_original[curr_buff_pos] = '\0';
 
 
-      if (findData(dictionary, word) != NULL) { /* Immediate match */
+      char *result = NULL;
+      result = findData(dictionary, word);
+      if (result != NULL) { /* Immediate match */
         /*fprintf(stdout, findData(dictionary, word));*/
-        fprintf(stdout, "BOIS");
+        fprintf(stdout, result);
         fprintf(stderr, "\n");
         fprintf(stderr, "Immediate match");
       } else { /* Check word with all but first converted to lowercase */
@@ -320,13 +322,15 @@ int processNextWord() { /* Read next word and handle according to replace rules.
         fprintf(stderr, "\n");
         fprintf(stderr, "Successfully finished check editing.");
 
-        if (findData(dictionary, word) != NULL) { /* Match after first change */
-          fprintf(stdout, findData(dictionary, word));
+        result = findData(dictionary, word);
+        if (result != NULL) { /* Match after first change */
+          fprintf(stdout, result);
         } else { /* Check word entirely lowercase */
           word[0] = tolower(word[0]);
 
-          if (findData(dictionary, word) != NULL) { /* Match after second change */
-            fprintf(stdout, findData(dictionary, word));
+          result = findData(dictionary, word);
+          if (result != NULL) { /* Match after second change */
+            fprintf(stdout, result);
           } else { /* No matches */
             /* PRINT ORIGINAL! */
             fprintf(stdout, word_original);

@@ -295,7 +295,7 @@ int processNextWord() { /* Read next word and handle according to replace rules.
       curr_buff_pos--;
 
       fprintf(stderr, "\n");
-      fprintf(stderr, "Successfully build word.");
+      fprintf(stderr, "Successfully built word.");
 
       char *word = malloc(sizeof(char) * (curr_buff_pos + 1));
       strncpy(word, large_charbuff, curr_buff_pos + 1);
@@ -332,6 +332,9 @@ int processNextWord() { /* Read next word and handle according to replace rules.
 
       free(word);
       free(word_original);
+
+      fprintf(stderr, "\n");
+      fprintf(stderr, "Successfully outputted word.");
 
       if (status == NULL) { /* End of File. */
         return 0;

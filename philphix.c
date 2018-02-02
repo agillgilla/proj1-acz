@@ -368,8 +368,12 @@ int processNextWord() { /* Read next word and handle according to replace rules.
 
       if (status == NULL) { /* End of File. */
         return 0;
-      } else if (!isalnum(charbuff[0])) {
-        fprintf(stdout, charbuff); /* Print the extra non-alhpanumeric char we found. */
+      } else if (!isalnum(charbuff[0])) { /* Print the extra non-alhpanumeric char we found. */
+        if (charbuff[0] == '%') { /* Escape percent sign */
+          fprintf(stdout, "%%");
+        } else {
+          fprintf(stdout, charbuff); 
+        }
         return 1;
       } else {
         fprintf(stderr, "Unrecognized input error.  Aborting...");

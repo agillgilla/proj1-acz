@@ -270,7 +270,7 @@ int processNextWord() { /* Read next word and handle according to replace rules.
   }
 
   if (!isalnum(charbuff[0])) { /* Output non alphanumeric chars to stdout immediately. */
-    fprintf(stdout, charbuff);
+    fprintf(stdout, "%s", charbuff);
     return 1;
   } else { /* Begin building word. */
 
